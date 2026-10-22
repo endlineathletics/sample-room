@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ORDO — Pattern &amp; Sample Atelier, Seoul</title>
+<meta name="description" content="자켓·코트·셔츠·블라우스 패턴과 샘플을 만드는 서울의 샘플실 ORDO. 패턴 제작, 토일 가봉, 샘플 제작, 그레이딩, 소량생산 연결.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORDO">
+<meta property="og:title" content="ORDO — Pattern &amp; Sample Atelier, Seoul">
+<meta property="og:description" content="Structured garments, precisely made. 자켓·코트·셔츠·블라우스, 구조가 어려울수록 정확하게.">
+<!-- og:image 는 사이트에서 유일하게 '전체 주소'를 써요(카카오톡·인스타 미리보기는 상대경로를 못 읽어요).
+     저장소를 넘기거나 주소가 바뀌면 모든 .html 의 이 한 줄을 새 주소로 바꿔 주세요. -->
+<meta property="og:image" content="https://endlineathletics.github.io/sample-room/images/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<!-- Home 은 Projects 와 같은 카드·호버를 써요 -->
+<link rel="stylesheet" href="assets/css/projects.css">
+<script>
+/* 데이터 파일(site.js / works.js) 문법 오류를 잡아 두었다가 common.js 가 한국어로 알려줘요. 모든 페이지 동일 — 수정 금지 */
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0 });
+}, true);
+</script>
+</head>
+<body data-page="home" data-bar="default">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 헤더: common.js 가 같은 구조로 다시 그려요(현재 페이지 표시·모바일 메뉴). 아래는 JS가 꺼졌을 때 보이는 내비 — 수정 금지 -->
+<header class="site-header" data-ordo="header">
+  <div class="site-header__in wrap">
+    <a class="wordmark" href="index.html" aria-current="page">ORDO</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <ul class="commas" lang="en">
+        <li><a href="projects.html" data-nav="projects">Projects</a></li>
+        <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+        <li><a href="work.html" data-nav="work">Work</a></li>
+        <li><a href="studio.html" data-nav="studio">Studio</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__cta link" href="contact.html#form">의뢰 문의 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<div class="notice" id="data-notice" role="alert" hidden></div>
+
+<main id="main" class="page page--home">
+  <!-- 타이틀 블록: 문장·한글 한 줄·소개·태그는 data/site.js 의 headline / headlineKo / intro / descriptor 로 바뀌어요.
+       아래 글자는 자바스크립트가 꺼졌을 때 보이는 기본값이에요. -->
+  <section class="titleblock grid wrap pj-tb hm-tb" aria-labelledby="page-title">
+    <div class="titleblock__title hm-head">
+      <h1 class="t-hero hm-hero" id="page-title" data-hm="headline" lang="en">Structured garments, precisely made.</h1>
+      <p class="hm-ko" data-hm="headlineKo">자켓·코트·셔츠·블라우스, 구조가 어려울수록 정확하게. 패턴부터 샘플까지.</p>
+    </div>
+    <div class="titleblock__intro hm-intro">
+      <p class="t-lines" data-hm="intro" lang="en"><span>ORDO is a pattern and sample atelier in Seoul,</span><span>making jackets, coats, shirts and blouses</span><span>for designer brands — from first pattern to final sample.</span></p>
+    </div>
+    <p class="titleblock__tag" data-hm="tag" lang="en">(Pattern &amp; Sample Atelier)</p>
+  </section>
+
+  <section class="wrap hm-feat" aria-labelledby="hm-feat-title">
+    <div class="hm-feat__head">
+      <h2 class="t-label" id="hm-feat-title" lang="en">Selected Projects</h2>
+    </div>
+    <ul class="pj-grid pj-grid--home" id="hm-featured"><!-- projects.js 가 대표 작업 4개를 그려요 --></ul>
+    <noscript><p class="noscript">대표 작업을 보려면 자바스크립트를 켜 주세요. <a class="link" href="projects.html">전체 작업 보기</a></p></noscript>
+  </section>
+
+  <section class="wrap hm-more" aria-label="작업 범위와 바로가기">
+    <div class="hm-more__in">
+      <ul class="commas hm-kw" data-hm="keywords" aria-label="작업 범위" lang="en">
+        <li>Pattern</li><li>Toile</li><li>Sample</li><li>Grading</li><li>Small-batch</li>
+      </ul>
+      <div class="hm-more__side">
+        <p class="hm-loc t-small t-muted" data-hm="loc" hidden></p>
+        <p class="hm-links">
+          <a class="hm-ulink" href="projects.html"><span class="link">View all projects</span> <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="hm-ulink" href="contact.html#form"><span class="link">의뢰 문의</span> <span class="arrow" aria-hidden="true">→</span></a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 푸터: common.js 가 site.js 값으로 다시 그려요. 아래는 JS가 꺼졌을 때 — 수정 금지 -->
+<footer class="site-footer" data-ordo="footer">
+  <div class="site-footer__in wrap">
+    <p>ORDO — Pattern &amp; Sample Atelier, Seoul</p>
+    <ul class="commas"><li><a class="link" href="contact.html#channels">Contact</a></li></ul>
+    <p>© 2026 ORDO</p>
+  </div>
+</footer>
+
+<!-- 스크립트 순서 고정: 데이터 → 공통 → 페이지 -->
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/projects.js"></script>
+</body>
+</html>

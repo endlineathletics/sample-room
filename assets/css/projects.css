@@ -1,0 +1,201 @@
+/* =====================================================================
+   ORDO — projects.css
+   Projects 페이지(ref1) + Home 이 같이 쓰는 작업 카드·그리드.
+   - 카드: (001) 번호 → 3:4 사진. 호버/키보드 포커스 시 사진은 그대로,
+     반투명 검정 막 + 흰 글씨(제목·요약·카테고리·View project →)
+   - 터치·모바일: 막 없음 → 사진 아래 제목·카테고리 캡션, 탭 한 번에 상세로
+   - 데스크톱 4열(빈칸 리듬) · 태블릿 3열 · 모바일 2열
+   base.css 는 고치지 않고 여기서만 덮어써요.
+   ===================================================================== */
+
+/* ---------- 1. 타이틀 블록: 데스크톱에서 카드 그리드(4열·8px)와 같은 선에 맞춤 ---------- */
+@media (min-width: 1024px) {
+  .pj-tb {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 8px;
+  }
+  .pj-tb .titleblock__title { grid-column: 1 / 3; grid-row: 1; }
+  /* 소개는 3번째 열 오른쪽 끝에 붙여 정렬(긴 줄은 왼쪽 열로 넘어가도 되게 2–3열을 씀) */
+  .pj-tb .titleblock__intro { grid-column: 2 / 4; grid-row: 1; }
+  .pj-tb .titleblock__tag { grid-column: 4 / 5; grid-row: 1; }
+}
+/* 태블릿: 소개를 한 칸 넓혀 한글 줄이 끊기지 않게 */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .pj-tb .titleblock__title { grid-row: 1; }
+  .pj-tb .titleblock__intro { grid-column: 6 / 11; grid-row: 1; }
+  .pj-tb .titleblock__tag { grid-row: 1; }
+}
+@media (min-width: 768px) {
+  .pj-tb .titleblock__intro .t-lines > span { white-space: nowrap; }
+}
+
+/* ---------- 2. 필터 줄 ---------- */
+.pj-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 4px 24px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+.pj-filter { column-gap: .3em; }
+.pj-filter .tbtn { font-variant-numeric: tabular-nums; }
+.pj-count { white-space: nowrap; }
+@media (min-width: 768px) {
+  .pj-bar { margin-bottom: 28px; }
+}
+
+/* ---------- 3. 그리드 ---------- */
+.pj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 8px;
+  row-gap: 28px;
+  transition: opacity var(--dur-fast) ease;
+}
+.pj-grid.is-fading { opacity: 0; }
+@media (min-width: 768px) {
+  .pj-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 32px; }
+  .pj-grid--home { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .pj-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.pj-cell { min-width: 0; }
+/* 일부러 비운 칸(에디토리얼 리듬): 데스크톱에서만 */
+.pj-cell--blank { display: none; }
+@media (min-width: 1024px) { .pj-cell--blank { display: block; } }
+
+.pj-empty { grid-column: 1 / -1; padding-block: 48px; font-size: var(--fs-small); color: var(--ink-2); }
+.pj-empty a { color: var(--ink); }
+
+/* ---------- 4. 카드 ---------- */
+.pj-card { display: block; color: inherit; }
+.pj-card__no { display: block; margin-bottom: 8px; }
+.pj-card__media { display: block; position: relative; container-type: inline-size; }
+
+/* 호버 막: 기본은 그리지 않음(터치·모바일) */
+.pj-card__ov { display: none; }
+
+/* 캡션(터치·모바일): 사진 아래 제목 · 카테고리 */
+.pj-card__cap { display: none; padding-top: 10px; }
+.pj-card__cap-t { display: block; font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.3; letter-spacing: -0.005em; }
+.pj-card__cap-m { display: block; margin-top: 3px; color: var(--ink-2); }
+
+@media (hover: none), (pointer: coarse), (max-width: 767.98px) {
+  .pj-card__cap { display: block; }
+}
+
+/* 호버 막 — 태블릿 이상. 마우스는 hover, 키보드는 focus-visible */
+@media (min-width: 768px) {
+  .pj-card__ov {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 16px;
+    padding: 16px;
+    background: var(--overlay);
+    color: #fff;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease);
+    pointer-events: none;
+  }
+  .pj-card:focus-visible { outline: none; }
+  .pj-card:focus-visible .pj-card__media { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .pj-card:focus-visible .pj-card__ov { opacity: 1; }
+  .pj-card .ph__label { transition: opacity var(--dur) var(--ease); }
+  .pj-card:focus-visible .ph__label { opacity: 0; }
+}
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .pj-card:hover .pj-card__ov { opacity: 1; }
+  .pj-card:hover .ph__label { opacity: 0; }   /* 빈 프레임 라벨이 막 아래로 비치지 않게 */
+}
+
+.pj-card__en {
+  display: block;
+  font-size: var(--fs-lead); font-weight: var(--fw-medium);
+  line-height: 1.2; letter-spacing: -0.01em;
+}
+.pj-card__ko { display: block; margin-top: 4px; font-size: var(--fs-small); font-weight: var(--fw-regular); line-height: 1.4; }
+.pj-card__sum {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3;
+  overflow: hidden;
+  max-width: 34em;
+  font-size: var(--fs-small); line-height: 1.45; font-weight: var(--fw-regular);
+}
+.pj-card__meta { display: block; margin-top: 14px; }
+.pj-card__view {
+  display: inline-block; margin-top: 6px;
+  font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.3;
+}
+/* 좁은 카드(태블릿 Home 4열 등)에서는 요약을 빼고 여백을 줄여 넘치지 않게 */
+@container (max-width: 240px) {
+  .pj-card__ov { padding: 12px; }
+  .pj-card__sum { -webkit-line-clamp: 2; line-clamp: 2; }
+}
+@container (max-width: 200px) {
+  .pj-card__sum { display: none; }
+  .pj-card__en { font-size: 15px; }
+}
+
+/* ---------- 5. Home ---------- */
+.hm-tb { padding-top: clamp(32px, 3.6vw, 56px); padding-bottom: clamp(32px, 3.4vw, 48px); }
+/* 태블릿: 문장을 넓게(2줄) 쓰고 소개·태그는 그 아래 오른쪽 */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .hm-tb.pj-tb .titleblock__title { grid-column: 1 / -1; grid-row: 1; }
+  .hm-tb.pj-tb .titleblock__intro { grid-column: 3 / 10; grid-row: 2; padding-top: 16px; }
+  .hm-tb.pj-tb .titleblock__tag { grid-column: 10 / 13; grid-row: 2; white-space: nowrap; justify-self: end; }
+}
+/* 데스크톱: 큰 문장을 4열 전체로 펼쳐 두 줄로(1.5화면 이내), 소개·태그는 그 아래 줄 오른쪽(3·4열 선) */
+@media (min-width: 1024px) {
+  .hm-tb.pj-tb .titleblock__title { grid-column: 1 / -1; grid-row: 1; }
+  .hm-tb.pj-tb .titleblock__intro { grid-column: 2 / 4; grid-row: 2; padding-top: 8px; }
+  .hm-tb.pj-tb .titleblock__tag { grid-column: 4 / 5; grid-row: 2; }
+}
+.hm-hero { word-break: normal; }
+.hm-ko {
+  word-break: keep-all; overflow-wrap: break-word;
+  margin-top: clamp(16px, 2vw, 28px);
+  max-width: 30em;
+  font-size: clamp(15px, 1.25vw, 18px); line-height: 1.55; font-weight: var(--fw-regular);
+}
+.hm-intro .t-lines { line-height: 1.4; }
+@media (max-width: 767.98px) {
+  .hm-tb { row-gap: 24px; }
+  .hm-intro .t-lines > span { display: inline; }      /* 모바일: 세 줄을 문단처럼 이어서 */
+  .hm-intro .t-lines > span + span::before { content: " "; }
+}
+
+.hm-feat__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border-top: 1px solid var(--line);
+  min-height: 44px;
+  margin-bottom: 20px;
+}
+.hm-feat__all { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-2); transition: color var(--dur-fast); }
+.hm-feat__all:hover, .hm-feat__all:focus-visible { color: var(--ink); }
+@media (min-width: 768px) { .hm-feat__head { margin-bottom: 28px; } }
+
+.hm-more { padding-top: clamp(40px, 3.4vw, 48px); }
+body[data-page="home"] .site-footer { margin-top: clamp(48px, 4vw, 56px); }
+.hm-more__in {
+  display: grid; gap: 20px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+.hm-kw {
+  font-size: clamp(22px, 2.6vw, 36px); font-weight: var(--fw-medium);
+  line-height: 1.12; letter-spacing: -0.025em;
+}
+.hm-more__side { display: grid; gap: 8px; align-content: start; }
+.hm-links { display: flex; flex-wrap: wrap; gap: 0 24px; font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.hm-links a { display: inline-flex; align-items: center; gap: .35em; min-height: 44px; }
+/* 44px 터치 영역 안에서 밑줄은 글자 바로 아래에(.link 를 안쪽 span 에) */
+.hm-ulink:hover .link, .hm-ulink:focus-visible .link { background-size: 100% 1px; }
+@media (min-width: 1024px) {
+  .hm-more__in { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 8px; }
+  .hm-kw { grid-column: 1 / 3; }
+  .hm-more__side { grid-column: 3 / 5; justify-items: end; text-align: right; }
+}
+
+/* 주소 줄의 전화 링크: 보이는 크기는 그대로, 누르는 높이만 44px(밑줄은 글자 밑에만) */
+.hm-loc a {
+  display: inline-block; padding-block: 14px; margin-block: -14px;
+  background-origin: content-box; background-clip: content-box;
+}

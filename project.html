@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ▼ 페이지마다 바꿀 곳 1: 제목·설명 (title 형식: "<Page> — ORDO", Home만 "ORDO — Pattern & Sample Atelier, Seoul") -->
+<title>Project — ORDO</title>
+<meta name="description" content="ORDO가 만든 작업의 사진·구조 포인트·작업 기록(소재, 패턴 피스, 토일 횟수, 기간)을 봅니다.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORDO">
+<meta property="og:title" content="Project — ORDO">
+<meta property="og:description" content="ORDO가 만든 작업의 사진·구조 포인트·작업 기록(소재, 패턴 피스, 토일 횟수, 기간)을 봅니다.">
+<!-- og:image 는 사이트에서 유일하게 '전체 주소'를 써요(카카오톡·인스타 미리보기는 상대경로를 못 읽어요).
+     저장소를 넘기거나 주소가 바뀌면 모든 .html 의 이 한 줄을 새 주소로 바꿔 주세요. -->
+<meta property="og:image" content="https://endlineathletics.github.io/sample-room/images/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<!-- ▼ 페이지마다 바꿀 곳 2: 페이지 CSS (없으면 이 줄 삭제) -->
+<link rel="stylesheet" href="assets/css/project.css">
+<script>
+/* 데이터 파일(site.js / works.js) 문법 오류를 잡아 두었다가 common.js 가 한국어로 알려줘요. 모든 페이지 동일 — 수정 금지 */
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0 });
+}, true);
+</script>
+</head>
+<!-- ▼ 페이지마다 바꿀 곳 3:
+     data-page = home | projects | portfolio | work | project | studio | contact  (현재 페이지 내비 표시에 씀)
+     data-bar  = default(카톡 | 의뢰서) | none(하단 바 없음, contact) | project(이 작업처럼 의뢰하기)
+     data-nav  = (선택) 내비에서 대신 표시할 페이지. 예: project.html 은 data-nav="projects"
+     data-footer = (선택) none 이면 푸터를 숨김(Portfolio 데스크톱처럼 한 화면 페이지) -->
+<body data-page="project" data-nav="projects" data-bar="project">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 헤더: common.js 가 같은 구조로 다시 그려요(현재 페이지 표시·모바일 메뉴). 아래는 JS가 꺼졌을 때 보이는 내비 — 수정 금지 -->
+<header class="site-header" data-ordo="header">
+  <div class="site-header__in wrap">
+    <a class="wordmark" href="index.html">ORDO</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <ul class="commas" lang="en">
+        <li><a href="projects.html" data-nav="projects">Projects</a></li>
+        <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+        <li><a href="work.html" data-nav="work">Work</a></li>
+        <li><a href="studio.html" data-nav="studio">Studio</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__cta link" href="contact.html#form">의뢰 문의 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<div class="notice" id="data-notice" role="alert" hidden></div>
+
+<main id="main" class="page page--project">
+  <!-- 작업 상세: project.html?id=<작업 id>. 내용은 data/works.js 에서 assets/js/project.js 가 그려요.
+       사진 그룹(Look → Detail → Inside → Pattern) · 정보 패널 · 다음 작업 -->
+  <div id="pd-root" class="pd">
+    <noscript>
+      <section class="pd-empty wrap">
+        <p class="t-label t-muted">(Project)</p>
+        <h1 class="pd-empty__title">Project</h1>
+        <p class="noscript">작업 사진과 정보를 보려면 자바스크립트를 켜 주세요. <a class="link" href="projects.html">Projects 목록 →</a></p>
+      </section>
+    </noscript>
+  </div>
+</main>
+
+<!-- 푸터: common.js 가 site.js 값으로 다시 그려요. 아래는 JS가 꺼졌을 때 — 수정 금지 -->
+<footer class="site-footer" data-ordo="footer">
+  <div class="site-footer__in wrap">
+    <p>ORDO — Pattern &amp; Sample Atelier, Seoul</p>
+    <ul class="commas"><li><a class="link" href="contact.html#channels">Contact</a></li></ul>
+    <p>© 2026 ORDO</p>
+  </div>
+</footer>
+
+<!-- 스크립트 순서 고정: 데이터 → 공통 → 페이지 -->
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script src="assets/js/common.js"></script>
+<!-- ▼ 페이지마다 바꿀 곳 4: 페이지 JS (없으면 이 줄 삭제) -->
+<script src="assets/js/project.js"></script>
+</body>
+</html>

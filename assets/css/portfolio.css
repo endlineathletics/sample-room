@@ -1,0 +1,212 @@
+/* =====================================================================
+   ORDO — portfolio.css (Portfolio 페이지 전용, ref2)
+   화면 세로 가운데 가로 한 줄 스트립. 모든 사진은 같은 3:4 직사각형.
+   마우스를 올린(또는 활성) 사진이 커지고 옆 사진은 밀려나요.
+   접두어: .pf-
+   ===================================================================== */
+
+/* ---------- 크기 토큰 ---------- */
+.page--portfolio {
+  --pf-gap: 12px;                                   /* 사진 사이 간격 */
+  --pf-hs: clamp(120px, min(24svh, 26vw), 280px);  /* 작은 사진 높이 ≈ 24vh (세로로 긴 태블릿은 폭 기준) */
+  --pf-chrome: 250px;                               /* 커진 사진 말고 세로로 필요한 자리(캡션·윗줄·아랫줄) */
+  /* 커진 사진 높이 ≈ 54vh. 화면이 낮아도 작은 사진의 1.6배보다 작아지지 않게(가로로 든 휴대폰 등) */
+  --pf-hl: max(calc(var(--pf-hs) * 1.6), min(54svh, 53vw, calc(100svh - var(--header-h) - var(--pf-chrome))));
+  --pf-cap: 68px;                                   /* 커진 사진 위 캡션 자리(위아래 대칭) */
+  --pf-fade: 9vw;                                   /* 양끝 흰 페이드 폭 */
+  --pf-edge: 12vw;                                  /* 첫·마지막 사진 바깥 여백 */
+  --pf-dur: .5s;
+  --pf-ease: cubic-bezier(.2, .7, .2, 1);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+@media (max-width: 767.98px) {
+  .page--portfolio {
+    --pf-gap: 8px;
+    --pf-hs: min(24svh, 44vw);
+    --pf-chrome: calc(var(--bar-h) + 200px);
+    --pf-hl: max(calc(var(--pf-hs) * 1.6), min(50svh, 84vw, calc(100svh - var(--header-h) - var(--pf-chrome))));
+    --pf-cap: 76px;
+    --pf-fade: 7vw;
+  }
+}
+
+/* 낮은 화면(가로로 든 휴대폰·낮은 창): 윗줄을 숨기고 캡션 자리를 줄여 커진 사진이 늘 가장 크게 */
+@media (max-height: 480px) {
+  .page--portfolio {
+    --pf-hs: max(56px, 16svh);
+    --pf-cap: 48px;
+    --pf-chrome: 150px;
+  }
+  .page--portfolio .pf-top { display: none; }   /* 아래 .pf-top 규칙보다 먼저 와서 한 단계 구체적으로 */
+  .page--portfolio .pf-cap__no { display: none; }   /* 번호는 아랫줄 (01 / 12) 에 있으니 캡션은 제목만 */
+}
+@media (max-height: 480px) and (max-width: 767.98px) {
+  .page--portfolio { --pf-chrome: calc(var(--bar-h) + 160px); }
+}
+
+/* 푸터: 데스크톱은 한 화면 구성이라 숨기고, 모바일은 세로 스크롤 아래에 공통 푸터를 보여요 */
+@media (min-width: 768px) { body[data-page="portfolio"] .site-footer { display: none; } }
+@media (max-width: 767.98px) { body[data-page="portfolio"] .site-footer { margin-top: 32px; } }
+
+/* ---------- 윗줄 · 아랫줄 (작은 대문자 라벨) ---------- */
+.pf-top,
+.pf-bottom {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: start;
+  flex: none;
+}
+.pf-top { padding-top: 20px; }
+.pf-bottom { padding-block: 16px 22px; align-items: end; }
+.pf-top p, .pf-top h1, .pf-bottom p { min-width: 0; }
+
+.pf-title { grid-column: 1 / 4; font-size: inherit; font-weight: var(--fw-medium); }
+.pf-range { grid-column: 6 / 9; color: var(--ink-2); }
+.pf-hint { grid-column: 10 / 13; text-align: right; color: var(--ink-2); }
+
+.pf-brand { grid-column: 1 / 4; font-weight: var(--fw-bold); letter-spacing: -0.01em; text-transform: none; font-size: 13px; line-height: 1.2; }
+.pf-now { grid-column: 6 / 10; }
+.pf-now__ko { display: block; margin-top: 2px; color: var(--ink-2); text-transform: none; letter-spacing: 0; font-weight: var(--fw-regular); font-size: 12px; }
+.pf-count { grid-column: 10 / 13; text-align: right; }
+
+@media (max-width: 767.98px) {
+  .pf-top, .pf-bottom { grid-template-columns: 1fr auto; column-gap: 16px; }
+  .pf-top { padding-top: 14px; }
+  .pf-title { grid-column: 1; }
+  .pf-range { display: none; }
+  .pf-hint { grid-column: 2; }
+  .pf-bottom { padding-block: 10px 14px; }
+  .pf-brand { display: none; }
+  .pf-now { grid-column: 1; }
+  .pf-count { grid-column: 2; }
+}
+
+/* ---------- 스테이지: 남은 높이의 세로 가운데 ---------- */
+.pf-stage {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* 가로 스크롤 컨테이너 — 문서 전체는 가로로 밀리지 않고 여기서만 스크롤 */
+.pf-strip {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--pf-fade), #000 calc(100% - var(--pf-fade)), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 var(--pf-fade), #000 calc(100% - var(--pf-fade)), transparent 100%);
+  cursor: grab;
+  outline: none;
+}
+.pf-strip::-webkit-scrollbar { display: none; }
+.pf-strip.is-dragging { cursor: grabbing; }
+.pf-strip.is-dragging .pf-link { pointer-events: none; }
+
+.pf-track {
+  display: flex;
+  align-items: center;
+  gap: var(--pf-gap);
+  width: max-content;
+  margin-inline: auto;                               /* 작업이 적으면 가운데 */
+  padding-inline: var(--pf-edge);
+  padding-block: var(--pf-cap);
+  height: var(--pf-hl);                              /* content-box: 커진 사진 높이 + 위아래 캡션 자리 */
+  box-sizing: content-box;
+}
+
+/* 크기 측정용(보이지 않음) */
+.pf-probe { position: absolute; left: 0; top: 0; height: 0; visibility: hidden; pointer-events: none; }
+.pf-probe--s { width: calc(var(--pf-hs) * .75); }
+.pf-probe--l { width: calc(var(--pf-hl) * .75); }
+
+/* ---------- 항목: 같은 3:4 직사각형, 활성이면 커짐 ---------- */
+.pf-item {
+  position: relative;
+  flex: none;
+  height: var(--pf-hs);
+  width: calc(var(--pf-hs) * .75);
+  transition: width var(--pf-dur) var(--pf-ease), height var(--pf-dur) var(--pf-ease);
+}
+.pf-item.is-active {
+  height: var(--pf-hl);
+  width: calc(var(--pf-hl) * .75);
+}
+.pf-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.pf-link .ph { height: 100%; }
+.pf-link .ph__img { -webkit-user-drag: none; pointer-events: none; }
+.pf-link .ph__label { transition: opacity var(--dur-fast); }
+.pf-item:not(.is-active) .ph__label { opacity: 0; }   /* 작은 칸에서는 라벨을 숨겨 깔끔하게 */
+
+/* 커진 사진 바로 위 캡션: (01) + 대문자 2–3줄 */
+.pf-cap {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 14px);
+  width: 15em;                                     /* ref2 처럼 대문자 2–3줄로 꺾이게 */
+  font-size: var(--fs-label);
+  font-weight: var(--fw-medium);
+  line-height: 1.35;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) linear;
+}
+.pf-cap__no { display: block; margin-bottom: 12px; }
+@media (max-width: 767.98px) {
+  .pf-cap { bottom: calc(100% + 10px); }
+  .pf-cap__no { margin-bottom: 8px; }
+}
+.pf-cap__t { display: block; }
+.pf-item.is-active .pf-cap {
+  opacity: 1;
+  transition: opacity var(--dur) linear .18s;
+}
+
+/* 포커스 링은 사진 바깥쪽에 */
+.pf-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* 사진 hover 는 크기 변화가 전부 — 그 밖의 장식 없음 */
+@media (hover: hover) and (pointer: fine) {
+  .pf-link { cursor: pointer; }
+  .pf-strip.is-dragging .pf-link { cursor: grabbing; }
+}
+
+/* 터치(호버 없음): 스와이프 + 가운데 정렬 스냅 */
+.pf-strip.is-touch { cursor: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.pf-strip.is-touch .pf-item { scroll-snap-align: center; }
+.pf-strip.is-touch .pf-track { padding-inline: calc(50% - var(--pf-hl) * .375); }
+.pf-strip.is-settling { scroll-snap-type: none; }    /* 확대 전환 동안 스냅이 튀지 않게 */
+
+/* 빈 상태 */
+.pf-empty { padding: 40px var(--pad); font-size: var(--fs-small); color: var(--ink-2); text-align: center; }
+
+/* 움직임 줄이기: 크기 전환 없이 바로 */
+@media (prefers-reduced-motion: reduce) {
+  .pf-item, .pf-cap { transition: none !important; }
+}
+
+/* 아랫줄 캡션 링크: 누르는 높이만 44px(밑줄은 글자 밑에만) */
+.pf-now a {
+  display: inline-block; padding-block: 15px; margin-block: -15px;
+  background-origin: content-box; background-clip: content-box;
+}

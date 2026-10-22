@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ▼ 페이지마다 바꿀 곳 1: 제목·설명 (title 형식: "<Page> — ORDO", Home만 "ORDO — Pattern & Sample Atelier, Seoul") -->
+<title>Contact — ORDO</title>
+<meta name="description" content="ORDO 연락처와 위치, 의뢰 정리 폼. 도식화 한 장으로도 의뢰를 시작할 수 있어요.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORDO">
+<meta property="og:title" content="Contact — ORDO">
+<meta property="og:description" content="ORDO 연락처와 위치, 의뢰 정리 폼. 도식화 한 장으로도 의뢰를 시작할 수 있어요.">
+<!-- og:image 는 사이트에서 유일하게 '전체 주소'를 써요(카카오톡·인스타 미리보기는 상대경로를 못 읽어요).
+     저장소를 넘기거나 주소가 바뀌면 모든 .html 의 이 한 줄을 새 주소로 바꿔 주세요. -->
+<meta property="og:image" content="https://endlineathletics.github.io/sample-room/images/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<!-- ▼ 페이지마다 바꿀 곳 2: 페이지 CSS (없으면 이 줄 삭제) -->
+<link rel="stylesheet" href="assets/css/contact.css">
+<script>
+/* 데이터 파일(site.js / works.js) 문법 오류를 잡아 두었다가 common.js 가 한국어로 알려줘요. 모든 페이지 동일 — 수정 금지 */
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0 });
+}, true);
+</script>
+</head>
+<!-- ▼ 페이지마다 바꿀 곳 3:
+     data-page = home | projects | portfolio | work | project | studio | contact  (현재 페이지 내비 표시에 씀)
+     data-bar  = default(카톡 | 의뢰서) | none(하단 바 없음, contact) | project(이 작업처럼 의뢰하기)
+     data-nav  = (선택) 내비에서 대신 표시할 페이지. 예: project.html 은 data-nav="projects"
+     data-footer = (선택) none 이면 푸터를 숨김(Portfolio 데스크톱처럼 한 화면 페이지) -->
+<body data-page="contact" data-bar="none">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 헤더: common.js 가 같은 구조로 다시 그려요(현재 페이지 표시·모바일 메뉴). 아래는 JS가 꺼졌을 때 보이는 내비 — 수정 금지 -->
+<header class="site-header" data-ordo="header">
+  <div class="site-header__in wrap">
+    <a class="wordmark" href="index.html">ORDO</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <ul class="commas" lang="en">
+        <li><a href="projects.html" data-nav="projects">Projects</a></li>
+        <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+        <li><a href="work.html" data-nav="work">Work</a></li>
+        <li><a href="studio.html" data-nav="studio">Studio</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__cta link" href="contact.html#form">의뢰 문의 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<div class="notice" id="data-notice" role="alert" hidden></div>
+
+<main id="main" class="page page--contact">
+  <!-- Contact: 연락 채널 → 지도 → 의뢰 정리 폼(#form) → 의뢰 전 준비물·FAQ.
+       이메일·전화·카톡·인스타·주소·운영시간은 data/site.js 값으로 assets/js/contact.js 가 채워요.
+       아래에 적힌 전화번호·주소는 JS가 꺼졌을 때 보이는 기본값이라, data/site.js 를 바꾸면 이 파일의 같은 글도 같이 고쳐 주세요. -->
+
+  <!-- 1. 타이틀 블록 + 연락 채널 (ref4) -->
+  <section class="ct-head grid wrap" aria-labelledby="page-title">
+    <div class="ct-head__left">
+      <h1 class="ct-title" id="page-title" lang="en">Contact</h1>
+      <p class="ct-intro t-lines" lang="en"><span>Whether it is a single pattern</span><span>or a full sample run, send us a sketch</span><span>and we will take it from there.</span></p>
+      <p class="ct-intro-ko">어려운 옷일수록 반갑습니다. 도식화 한 장으로도 <span class="nowrap">시작할 수 있어요.</span></p>
+    </div>
+
+    <div class="ct-info" id="channels" role="group" aria-label="연락 채널">
+      <div class="ct-info__pair">
+        <div class="ct-item" data-ch="email">
+          <p class="ct-item__label"><span lang="en">Email address</span><button type="button" class="ct-copy" data-copy="" data-what="이메일 주소" hidden>Copy<span class="sr-only"> 이메일 주소</span></button></p>
+          <p class="ct-item__value"><span class="is-empty">이메일 주소 준비 중</span></p>
+        </div>
+        <div class="ct-item" data-ch="phone">
+          <p class="ct-item__label"><span lang="en">Phone number</span><button type="button" class="ct-copy" data-copy="010-3713-3820" data-what="전화번호">Copy<span class="sr-only"> 전화번호</span></button></p>
+          <p class="ct-item__value"><a class="ct-tel" href="tel:+821037133820">010-3713-3820</a></p>
+        </div>
+      </div>
+      <div class="ct-item ct-connect">
+        <p class="ct-item__label"><span lang="en">Let’s connect</span></p>
+        <ul class="ct-connect__list">
+          <li data-ch="kakao"><span class="is-empty" title="카카오톡 채널은 준비 중이에요. 지금은 전화로 문의해 주세요.">KakaoTalk</span></li>
+          <li data-ch="instagram"><span class="is-empty" title="인스타그램은 준비 중이에요.">Instagram</span></li>
+          <li data-ch="naver"><a class="link" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%97%AD%EC%82%BC%EB%8F%99%20789-19" target="_blank" rel="noopener">Naver Map</a></li>
+        </ul>
+      </div>
+      <!-- 운영시간은 지도 아래 주소 줄에 한 번만 보여요 -->
+      <p class="ct-info__note t-muted"><span data-ct="reply">보통 영업일 1일 안에 답변드려요</span></p>
+      <p class="sr-only" data-ct="copy-live" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 2. 지도 (화면 끝까지) + 주소 줄 -->
+  <section class="ct-map" id="location" aria-label="위치">
+    <div class="ct-map__frame">
+      <iframe class="ct-map__iframe" title="ORDO 위치 — 서울 강남구 역삼동 789-19" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%97%AD%EC%82%BC%EB%8F%99%20789-19&amp;z=17&amp;hl=ko&amp;output=embed"></iframe>
+      <button type="button" class="ct-map__shield" aria-label="지도 움직이기 켜기"><span>탭해서 지도 움직이기</span></button>
+    </div>
+    <div class="ct-map__bar wrap">
+      <p class="ct-map__addr"><span class="t-label">(Address)</span> <span data-ct="address">서울 강남구 역삼동 789-19</span> · <span data-ct="visit">방문 상담 예약제</span><span class="ct-map__hours t-muted" data-ct="hours">평일 10:00–19:00</span></p>
+      <ul class="ct-map__links">
+        <li><a class="link" data-map="kakao" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%97%AD%EC%82%BC%EB%8F%99%20789-19" target="_blank" rel="noopener">카카오맵 <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="link" data-map="naver" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%97%AD%EC%82%BC%EB%8F%99%20789-19" target="_blank" rel="noopener">네이버 지도 <span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="link" data-map="google" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%97%AD%EC%82%BC%EB%8F%99%20789-19" target="_blank" rel="noopener">Google 지도 <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. 의뢰 정리 폼 -->
+  <section class="ct-form wrap" id="form" aria-labelledby="ct-form-title">
+    <div class="ct-form__grid grid">
+      <div class="ct-form__intro">
+        <p class="t-label">(Request)</p>
+        <h2 class="ct-form__title" id="ct-form-title" lang="en">Send us a brief</h2>
+        <p class="ct-form__ko">정리해서 보내 주시면 견적이 빨라요. 꼭 적을 칸은 두 개뿐이에요.</p>
+        <ul class="ct-form__notes">
+          <li>도식화·사진 파일은 카톡이나 메일에 직접 첨부해 주세요.</li>
+          <li>입력 내용은 서버에 저장되지 않아요. 이 브라우저에만 잠시 보관돼요.</li>
+        </ul>
+      </div>
+
+      <form class="ct-fields" id="ct-brief" novalidate aria-describedby="ct-req-note">
+        <p class="ct-req-note t-label t-muted" id="ct-req-note"><span aria-hidden="true">*</span> 표시는 꼭 적어 주세요</p>
+
+        <div class="ct-field" data-f="name">
+          <label class="ct-field__label" for="ct-name">이름·브랜드명 <span class="ct-req" aria-hidden="true">*</span></label>
+          <input class="ct-input" id="ct-name" name="name" type="text" autocomplete="organization" required aria-required="true" aria-describedby="ct-name-err" placeholder="예: 홍길동 / BRAND">
+          <p class="ct-err" id="ct-name-err" hidden>이름이나 브랜드명을 적어 주세요.</p>
+        </div>
+
+        <div class="ct-field" data-f="reply">
+          <label class="ct-field__label" for="ct-reply">회신받을 연락처 <span class="ct-req" aria-hidden="true">*</span></label>
+          <input class="ct-input" id="ct-reply" name="reply" type="text" autocomplete="email" required aria-required="true" aria-describedby="ct-reply-err ct-reply-hint" placeholder="카톡 ID · 이메일 · 전화 중 편한 것">
+          <p class="ct-hint" id="ct-reply-hint">어느 것이든 하나만 적어 주시면 돼요.</p>
+          <p class="ct-err" id="ct-reply-err" hidden>답장을 받을 연락처를 적어 주세요.</p>
+        </div>
+
+        <fieldset class="ct-field ct-chips" data-f="item">
+          <legend class="ct-field__label">아이템 <span class="ct-opt">여러 개 선택 가능</span></legend>
+          <div class="ct-chips__list" data-chips="item">
+            <label class="ct-chip"><input type="checkbox" name="item" value="jacket"><span>자켓</span></label>
+            <label class="ct-chip"><input type="checkbox" name="item" value="coat"><span>코트</span></label>
+            <label class="ct-chip"><input type="checkbox" name="item" value="shirt"><span>셔츠</span></label>
+            <label class="ct-chip"><input type="checkbox" name="item" value="blouse"><span>블라우스</span></label>
+            <label class="ct-chip"><input type="checkbox" name="item" value="etc"><span>기타</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="ct-field ct-chips" data-f="service">
+          <legend class="ct-field__label">필요한 서비스 <span class="ct-opt">여러 개 선택 가능</span></legend>
+          <div class="ct-chips__list" data-chips="service">
+            <label class="ct-chip"><input type="checkbox" name="service" value="pattern"><span>패턴</span></label>
+            <label class="ct-chip"><input type="checkbox" name="service" value="toile"><span>토일</span></label>
+            <label class="ct-chip"><input type="checkbox" name="service" value="sample"><span>샘플</span></label>
+            <label class="ct-chip"><input type="checkbox" name="service" value="grading"><span>그레이딩</span></label>
+            <label class="ct-chip"><input type="checkbox" name="service" value="production"><span>소량생산</span></label>
+          </div>
+        </fieldset>
+
+        <div class="ct-field-row">
+          <div class="ct-field" data-f="qty">
+            <label class="ct-field__label" for="ct-qty">수량·사이즈 수</label>
+            <input class="ct-input" id="ct-qty" name="qty" type="text" autocomplete="off" placeholder="예: 샘플 1벌 · 3사이즈">
+          </div>
+          <div class="ct-field" data-f="when">
+            <label class="ct-field__label" for="ct-when">희망 완료 시기</label>
+            <div class="ct-select">
+              <select class="ct-input" id="ct-when" name="when">
+                <option value="">선택 안 함</option>
+                <option value="일정 협의">일정 협의</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="ct-field ct-chips" data-f="ready">
+          <legend class="ct-field__label">준비된 자료 <span class="ct-opt">여러 개 선택 가능</span></legend>
+          <div class="ct-chips__list" data-chips="ready">
+            <label class="ct-chip"><input type="checkbox" name="ready" value="도식화"><span>도식화</span></label>
+            <label class="ct-chip"><input type="checkbox" name="ready" value="작업지시서"><span>작업지시서</span></label>
+            <label class="ct-chip"><input type="checkbox" name="ready" value="원단"><span>원단</span></label>
+            <label class="ct-chip"><input type="checkbox" name="ready" value="사진만 있음"><span>사진만 있음</span></label>
+          </div>
+        </fieldset>
+
+        <div class="ct-field" data-f="ref">
+          <label class="ct-field__label" for="ct-ref">참고 작업</label>
+          <input class="ct-input" id="ct-ref" name="ref" type="text" autocomplete="off" placeholder="이 사이트의 작업 중 비슷한 것이 있다면">
+        </div>
+
+        <div class="ct-field" data-f="memo">
+          <label class="ct-field__label" for="ct-memo">메모</label>
+          <textarea class="ct-input ct-textarea" id="ct-memo" name="memo" rows="4" placeholder="원하는 핏, 원단, 걱정되는 부분 등 자유롭게"></textarea>
+        </div>
+
+        <div class="ct-fields__foot">
+          <button type="button" class="ct-clear tbtn" data-act="clear">입력 내용 지우기</button>
+          <p class="ct-saved t-label t-muted" aria-live="polite"></p>
+        </div>
+        <noscript><p class="ct-noscript">자바스크립트가 꺼져 있어 의뢰 내용을 정리·복사할 수 없어요. 위의 전화번호(010-3713-3820)로 바로 문의해 주세요.</p></noscript>
+      </form>
+
+      <div class="ct-out">
+        <div class="ct-out__in">
+          <div class="ct-out__head">
+            <p class="t-label">(Preview)</p>
+            <p class="ct-out__count t-label t-muted"><span data-ct="count">0</span> / 1,500</p>
+          </div>
+          <pre class="ct-preview" id="ct-preview" role="region" aria-live="off" tabindex="0" aria-label="보낼 내용 미리보기">[의뢰] 브랜드명 / 아이템 / 수량 / 시기</pre>
+          <div class="ct-send">
+            <button type="button" class="btn btn--block btn--lg ct-send__main" data-act="copy"><span data-ct="copy-label">복사하고 카톡 열기</span> <span class="arrow" aria-hidden="true">→</span></button>
+            <a class="btn btn--line btn--block btn--lg ct-send__mail" data-act="mail" href="mailto:" hidden>메일로 보내기 <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="ct-send__tel link" data-ct="tel-alt" href="tel:+821037133820">전화로 문의 010-3713-3820 <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <p class="ct-send__note t-muted" data-ct="send-note"></p>
+          <div class="ct-status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 의뢰 전 준비물 · FAQ (글은 여기서 바로 고쳐요) -->
+  <section class="ct-before wrap" id="before" aria-labelledby="ct-before-title">
+    <div class="ct-before__head grid">
+      <p class="t-label ct-before__no">(Before you request)</p>
+      <h2 class="t-h2 ct-before__title" id="ct-before-title" lang="en">Before you request</h2>
+      <p class="ct-before__ko">도식화 한 장으로도 시작할 수 있어요.</p>
+    </div>
+    <div class="ct-before__grid grid">
+      <div class="ct-check">
+        <h3 class="ct-check__title t-label">준비하면 좋은 것 <span class="t-muted">Checklist</span></h3>
+        <ul class="ct-check__list">
+          <li><span class="ct-check__box" aria-hidden="true"></span><span><strong>도식화·작업지시서</strong>손그림이나 사진에 메모한 것도 괜찮아요.</span></li>
+          <li><span class="ct-check__box" aria-hidden="true"></span><span><strong>레퍼런스 사진</strong>원하는 실루엣·디테일이 보이는 사진 몇 장.</span></li>
+          <li><span class="ct-check__box" aria-hidden="true"></span><span><strong>원단 유무</strong>있다면 스와치 사진과 혼용률, 없다면 원하는 느낌.</span></li>
+          <li><span class="ct-check__box" aria-hidden="true"></span><span><strong>사이즈·수량</strong>기준 사이즈와 필요한 사이즈 수, 벌 수.</span></li>
+          <li><span class="ct-check__box" aria-hidden="true"></span><span><strong>희망 납기</strong>쇼룸·촬영·출시 일정이 정해져 있다면 함께.</span></li>
+        </ul>
+        <a class="btn btn--line btn--block ct-check__cta" href="#form">의뢰서 작성하기 <span class="glyph" aria-hidden="true">↑</span></a>
+      </div>
+
+      <div class="ct-faq">
+        <h3 class="ct-faq__title t-label">자주 묻는 질문 <span class="t-muted">FAQ</span></h3>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(01)</span><span class="ct-q__t">최소 수량은?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>패턴·토일·샘플은 1벌부터 받아요. 소량생산 연결은 ○○벌부터 가능하고, 아이템과 공장 일정에 따라 달라질 수 있어요.</p></div>
+        </details>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(02)</span><span class="ct-q__t">비용은 어떻게 정해지나요?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>아이템 구조, 패턴 피스 수, 토일 횟수, 수량으로 정해져요. 도식화나 사진을 받으면 영업일 1일 안에 견적 범위를 안내드려요.</p></div>
+        </details>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(03)</span><span class="ct-q__t">사진만 있어도 되나요?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>네. 레퍼런스 사진 몇 장과 원하는 기장·핏을 알려 주시면, 상담하면서 도식화 정리부터 함께 도와드려요.</p></div>
+        </details>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(04)</span><span class="ct-q__t">원단도 같이 구해주나요?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>원단·부자재가 없으면 ○○ 거래처를 통해 함께 찾아드려요. 원단비는 실비로 따로 정산해요.</p></div>
+        </details>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(05)</span><span class="ct-q__t">지방·택배 의뢰 가능한가요?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>가능해요. 자료는 카톡·메일로, 샘플과 원단은 택배로 주고받고, 피팅은 영상 통화로도 진행할 수 있어요.</p></div>
+        </details>
+        <details class="acc ct-q">
+          <summary><span class="ct-q__no t-label">(06)</span><span class="ct-q__t">디자인 비공개(NDA)는?</span><span class="acc__sign" aria-hidden="true"></span></summary>
+          <div class="ct-q__a"><p>모든 작업은 기본적으로 비공개예요. 포트폴리오에는 따로 동의를 받은 작업만 올리고, 필요하면 NDA에 서명해요.</p></div>
+        </details>
+        <p class="ct-faq__more"><a class="link" data-ct="kakao-ask" href="#channels">원하는 답이 없나요? 카톡으로 물어보기 <span class="arrow" aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 푸터: common.js 가 site.js 값으로 다시 그려요. 아래는 JS가 꺼졌을 때 — 수정 금지 -->
+<footer class="site-footer" data-ordo="footer">
+  <div class="site-footer__in wrap">
+    <p>ORDO — Pattern &amp; Sample Atelier, Seoul</p>
+    <ul class="commas"><li><a class="link" href="contact.html#channels">Contact</a></li></ul>
+    <p>© 2026 ORDO</p>
+  </div>
+</footer>
+
+<!-- 스크립트 순서 고정: 데이터 → 공통 → 페이지 -->
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script src="assets/js/common.js"></script>
+<!-- ▼ 페이지마다 바꿀 곳 4: 페이지 JS (없으면 이 줄 삭제) -->
+<script src="assets/js/contact.js"></script>
+</body>
+</html>

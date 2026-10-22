@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Check — ORDO</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  /* 점검 페이지 전용 — 빨강은 '고쳐야 함' 표시에만 써요 */
+  .ck { --bad: #C8102E; --warn: #8A5A00; --ok: #1F7A3A; }
+  .ck-head { padding-block: 48px 32px; display: grid; gap: 16px; }
+  .ck-sum { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; font-weight: 500; }
+  .ck-sec { padding-block: 32px; border-top: 1px solid var(--line); }
+  .ck-sec h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .ck-list { display: grid; gap: 6px; font-size: 14px; line-height: 1.5; }
+  .ck-list li { display: flex; gap: 10px; align-items: baseline; }
+  .ck-tag { flex: none; min-width: 44px; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+  .bad { color: var(--bad); } .warn { color: var(--warn); } .ok { color: var(--ok); } .info { color: var(--ink-2); }
+  .ck-work { padding-block: 20px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+  .ck-work h3 { font-size: 16px; font-weight: 700; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .ck-imgs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ck-img { font-size: 12px; font-weight: 500; padding: 3px 7px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+  .ck-img.is-ok { border-color: var(--ok); color: var(--ok); }
+  .ck-img.is-bad { border-color: var(--bad); color: var(--bad); }
+  .ck-img.is-wait { color: var(--ink-2); }
+  .ck code { font-family: inherit; font-weight: 500; background: var(--ph); padding: 0 4px; }
+</style>
+<script>
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0, msg: e.message || '' });
+}, true);
+</script>
+</head>
+<body data-page="check" data-bar="none" class="ck">
+<main id="main" class="wrap">
+  <div class="ck-head">
+    <a class="wordmark" href="index.html">ORDO</a>
+    <h1 class="t-h2">Check.</h1>
+    <p class="t-small t-muted">data/site.js · data/works.js · 사진 파일을 점검해요. 이 페이지는 검색에 나오지 않아요.<br>
+      <span class="bad">빨강</span> = 꼭 고칠 것 · <span class="warn">갈색</span> = 확인해 볼 것 · <span class="ok">초록</span> = 괜찮음</p>
+    <div class="ck-sum" id="sum" aria-live="polite">점검 중…</div>
+    <p class="t-small warn" id="ck-local" hidden><strong>이 컴퓨터에서 연 페이지예요.</strong> 맥·윈도우는 파일 이름의 대문자·소문자(01.JPG 와 01.jpg)를 같은 것으로 봐서,
+      여기서는 정상으로 보여도 올린 사이트(GitHub Pages)에서는 사진이 안 나올 수 있어요. 사진을 올린 뒤 <strong>사이트 주소의 check.html</strong> 에서 꼭 다시 확인해 주세요.</p>
+    <script>
+      (function () {
+        if (location.protocol === 'file:' || /^(localhost|127\.|\[::1\]|0\.0\.0\.0)/.test(location.hostname)) document.getElementById('ck-local').hidden = false;
+      })();
+    </script>
+  </div>
+  <section class="ck-sec" aria-labelledby="h-data"><h2 id="h-data">1. 데이터 파일</h2><ul class="ck-list" id="out-data"></ul></section>
+  <section class="ck-sec" aria-labelledby="h-site"><h2 id="h-site">2. 기본 정보 (data/site.js)</h2><ul class="ck-list" id="out-site"></ul></section>
+  <section class="ck-sec" aria-labelledby="h-works"><h2 id="h-works">3. 작업물 (data/works.js)</h2><ul class="ck-list" id="out-works"></ul><div id="out-each"></div></section>
+  <noscript><p class="noscript">점검하려면 자바스크립트를 켜 주세요.</p></noscript>
+</main>
+
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script>
+(function () {
+  var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var count = { bad: 0, warn: 0 };
+  var photos = { total: 0, ok: 0, bad: 0, done: 0 };
+  function line(listId, level, html) {
+    if (level === 'bad' || level === 'warn') count[level]++;
+    var tag = { bad: '고칠 것', warn: '확인', ok: 'OK', info: '참고' }[level];
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="ck-tag ' + level + '">' + tag + '</span><span>' + html + '</span>';
+    document.getElementById(listId).appendChild(li);
+  }
+  function summary() {
+    var s = document.getElementById('sum');
+    var photoTxt = photos.total ? '사진 ' + photos.ok + ' / ' + photos.total + '장 올라와 있음' + (photos.done < photos.total ? ' (확인 중…)' : '') : '사진 칸 없음';
+    s.innerHTML = '<span class="' + (count.bad ? 'bad' : 'ok') + '">고칠 것 ' + count.bad + '</span>' +
+      '<span class="' + (count.warn ? 'warn' : 'ok') + '">확인 ' + count.warn + '</span><span>' + photoTxt + '</span>';
+  }
+
+  /* 1. 데이터 파일 */
+  var errs = window.__dataErr || [];
+  var siteOk = typeof window.SITE === 'object' && window.SITE;
+  var worksOk = Array.isArray(window.WORKS);
+  [['site', siteOk], ['works', worksOk]].forEach(function (p) {
+    var e = errs.filter(function (x) { return x.file === p[0]; })[0];
+    var file = 'data/' + p[0] + '.js';
+    if (p[1] && !e) line('out-data', 'ok', '<code>' + file + '</code> 정상으로 읽었어요.');
+    else line('out-data', 'bad', '<code>' + file + '</code> 를 읽지 못했어요' + (e && e.line ? ' — <strong>' + e.line + '번째 줄 근처</strong>' : '') +
+      '. 쉼표(,)·따옴표(")·괄호 { } [ ] 가 빠지거나 하나 더 있는지 확인해 주세요.' + (e && e.msg ? ' <span class="info">(' + esc(e.msg) + ')</span>' : ''));
+  });
+
+  /* 2. site.js */
+  if (siteOk) {
+    var S = window.SITE, c = S.contact || {};
+    if (!S.name) line('out-site', 'bad', '<code>name</code>(샘플실 이름)이 비어 있어요.');
+    else line('out-site', 'ok', '이름: <strong>' + esc(S.name) + '</strong>');
+    [['kakaoUrl', '카카오톡 채널 주소'], ['instagram', '인스타그램 아이디'], ['email', '이메일'], ['phone', '전화번호']].forEach(function (k) {
+      if (!c[k[0]]) line('out-site', 'info', k[1] + '(<code>contact.' + k[0] + '</code>)가 아직 비어 있어요. 화면에는 빈칸 표시가 나와요.');
+    });
+    if (c.kakaoUrl && !/^https:\/\/(pf\.kakao\.com|open\.kakao\.com)\//.test(c.kakaoUrl)) line('out-site', 'warn', '카카오톡 주소가 <code>https://pf.kakao.com/…</code> 형식이 아니에요: ' + esc(c.kakaoUrl));
+    if (c.instagram && /[@\s\/]/.test(c.instagram)) line('out-site', 'warn', '인스타그램 아이디에는 @·공백·주소 없이 아이디만 적어요: ' + esc(c.instagram));
+    if (c.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email)) line('out-site', 'warn', '이메일 형식을 확인해 주세요: ' + esc(c.email));
+    var need = ['pattern', 'toile', 'sample', 'grading', 'production'];
+    var ids = (S.services || []).map(function (s) { return s.id; });
+    need.forEach(function (id) { if (ids.indexOf(id) < 0) line('out-site', 'bad', '서비스 <code>' + id + '</code> 가 없어요. 서비스 id 는 영어 그대로 두세요(문의 폼과 연결돼 있어요).'); });
+    if (need.every(function (id) { return ids.indexOf(id) >= 0; })) line('out-site', 'ok', '서비스 ' + ids.length + '개');
+    var ph = JSON.stringify(S).match(/○/g);
+    if (ph) line('out-site', 'info', '아직 정하지 않은 자리(○)가 ' + ph.length + '군데 남아 있어요.');
+  }
+
+  /* 3. works.js — 원본 블록 그대로 점검 */
+  if (!worksOk) { summary(); return; }
+  var CATS = ['jacket', 'coat', 'shirt', 'blouse'];
+  var GROUPS = ['look', 'detail', 'inside', 'pattern'];
+  var raw = window.WORKS, seen = {}, featured = 0, hidden = 0;
+  var each = document.getElementById('out-each');
+  var jobs = [];
+
+  raw.forEach(function (w, i) {
+    var label = (i + 1) + '번째 블록' + (w && w.id ? ' <code>' + esc(w.id) + '</code>' : '');
+    var box = document.createElement('div');
+    box.className = 'ck-work';
+    var issues = [];
+    function add(level, msg) { issues.push([level, msg]); if (level === 'bad' || level === 'warn') count[level]++; }
+    if (!w || typeof w !== 'object') { add('bad', '형식이 올바르지 않아요({ } 로 감싼 블록이어야 해요).'); }
+    else {
+      ['id', 'category', 'title'].forEach(function (k) { if (!w[k] || !String(w[k]).trim()) add('bad', '꼭 필요한 칸 <code>' + k + '</code> 가 비어 있어요. 이 작업은 화면에 안 나와요.'); });
+      if (!Array.isArray(w.look)) add('bad', '꼭 필요한 칸 <code>look</code> 이 없어요. <code>look: ["01.jpg"]</code> 처럼 적어 주세요.');
+      else if (!w.look.length) add('warn', '<code>look</code> 사진이 하나도 없어요. 대표 사진 자리가 회색으로만 나와요.');
+      if (w.id) {
+        if (!/^[a-z0-9-]+$/.test(w.id)) add('bad', 'id 는 영어 소문자·숫자·- 만 써요: <code>' + esc(w.id) + '</code>');
+        if (seen[w.id]) add('bad', 'id <code>' + esc(w.id) + '</code> 가 ' + seen[w.id] + '번째 블록과 겹쳐요. 뒤쪽 작업은 화면에 안 나와요.');
+        seen[w.id] = seen[w.id] || (i + 1);
+      }
+      if (w.category && CATS.indexOf(String(w.category)) < 0) add('bad', 'category 오타: <code>' + esc(w.category) + '</code> → jacket / coat / shirt / blouse 중 하나(소문자)로 적어 주세요.');
+      if (w.featured === true) featured++;
+      if (w.hidden === true) { hidden++; add('info', '<code>hidden: true</code> — 화면에서 숨긴 작업이에요.'); }
+      ['pieces', 'toiles'].forEach(function (k) { if (w[k] !== undefined && w[k] !== '' && isNaN(+w[k])) add('warn', '<code>' + k + '</code> 는 숫자만 적어요: ' + esc(w[k])); });
+
+      var files = [];
+      GROUPS.forEach(function (g) {
+        if (w[g] === undefined) return;
+        if (!Array.isArray(w[g])) { add('bad', '<code>' + g + '</code> 는 [ ] 안에 적어야 해요.'); return; }
+        w[g].forEach(function (item, j) {
+          var file = typeof item === 'string' ? item : (item && typeof item === 'object' ? item.src : '');
+          if (!file) { add('bad', g + ' ' + (j + 1) + '번째: 파일 이름이 없어요. <code>"01.jpg"</code> 또는 <code>{ src: "01.jpg", ratio: "3:2" }</code> 형식이에요.'); return; }
+          if (item && typeof item === 'object' && item.ratio !== undefined && !/^\s*\d+(\.\d+)?\s*[:/x×]\s*\d+(\.\d+)?\s*$/.test(String(item.ratio)))
+            add('bad', g + ' <code>' + esc(file) + '</code>: ratio 는 <code>"3:2"</code> 처럼 숫자:숫자 로 적어요 (지금: ' + esc(item.ratio) + ')');
+          if (/[A-Z]/.test(file)) add('bad', '<code>' + esc(file) + '</code>: 대문자가 있어요. 사이트에서는 대소문자가 다르면 다른 파일이에요. 파일과 목록 모두 소문자로 맞춰 주세요.');
+          if (/[^a-zA-Z0-9._\-]/.test(file)) add('bad', '<code>' + esc(file) + '</code>: 파일 이름에 한글·공백·특수문자는 쓰지 않아요.');
+          if (!/\.(jpe?g|png|webp)$/i.test(file)) add('warn', '<code>' + esc(file) + '</code>: jpg / png / webp 만 써요(아이폰 HEIC 는 JPG 로 바꿔요).');
+          files.push({ g: g, file: file });
+        });
+      });
+      (w.points || []).forEach(function (p, j) {
+        if (p && p.img && !files.some(function (f) { return f.file === p.img; })) add('warn', '구조 포인트 ' + (j + 1) + '번 사진 <code>' + esc(p.img) + '</code> 이 사진 목록(detail 등)에 없어요.');
+      });
+      if (w.id && /^[a-z0-9-]+$/.test(w.id)) files.forEach(function (f) { jobs.push({ box: box, id: w.id, g: f.g, file: f.file }); });
+    }
+    box.innerHTML = '<h3><span>' + label + '</span>' + (w && w.title ? '<span class="t-muted">' + esc(w.title) + '</span>' : '') + '</h3>' +
+      (issues.length ? '<ul class="ck-list">' + issues.map(function (x) {
+        return '<li><span class="ck-tag ' + x[0] + '">' + { bad: '고칠 것', warn: '확인', info: '참고' }[x[0]] + '</span><span>' + x[1] + '</span></li>';
+      }).join('') + '</ul>' : '<p class="t-small ok">블록 내용 정상</p>') +
+      '<div class="ck-imgs" aria-label="사진 파일"></div>';
+    each.appendChild(box);
+  });
+
+  line('out-works', 'ok', '작업 ' + raw.length + '개를 읽었어요' + (hidden ? ' (숨김 ' + hidden + '개)' : '') + '.');
+  if (featured > 1) line('out-works', 'warn', '<code>featured: true</code> 가 ' + featured + '개예요. Home 대표 작업은 1개를 권장해요.');
+  var sample = raw.some(function (w) { return w && /^(coat-12|jacket-11|shirt-10|blouse-09)$/.test(w.id); });
+  if (sample) line('out-works', 'warn', '아직 예시 작업(coat-12 등)이 남아 있어요. 실제 작업으로 바꿔 주세요.');
+
+  /* 사진 파일 확인: 없으면 대소문자·확장자만 다른 파일이 있는지도 찾아봐요 */
+  photos.total = jobs.length;
+  summary();
+  function probe(url) {
+    return new Promise(function (res) {
+      var im = new Image();
+      im.onload = function () { res(im.naturalWidth ? im : null); };
+      im.onerror = function () { res(null); };
+      im.src = url;
+    });
+  }
+  function variants(file) {
+    var m = file.match(/^(.*)\.([^.]+)$/);
+    if (!m) return [];
+    var base = m[1], ext = m[2], out = [];
+    ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG'].forEach(function (e) { if (e !== ext) out.push(base + '.' + e); });
+    if (base.toUpperCase() !== base) out.push(base.toUpperCase() + '.' + ext.toUpperCase());
+    return out;
+  }
+  var queue = jobs.slice(), running = 0, MAX = 6;
+  function next() {
+    while (running < MAX && queue.length) run(queue.shift());
+  }
+  function run(job) {
+    running++;
+    var chip = document.createElement('span');
+    chip.className = 'ck-img is-wait';
+    chip.textContent = job.g + '/' + job.file;
+    job.box.querySelector('.ck-imgs').appendChild(chip);
+    var path = 'images/works/' + job.id + '/';
+    probe(path + job.file).then(function (im) {
+      if (im) {
+        chip.className = 'ck-img is-ok';
+        chip.title = im.naturalWidth + '×' + im.naturalHeight;
+        chip.textContent = job.file + ' ✓ ' + im.naturalWidth + '×' + im.naturalHeight;
+        if (Math.max(im.naturalWidth, im.naturalHeight) > 2600) { count.warn++; chip.textContent += ' (너무 큼 — 긴 변 2000px 권장)'; }
+        photos.ok++;
+        return;
+      }
+      var vs = variants(job.file);
+      var found = null;
+      return vs.reduce(function (p, v) {
+        return p.then(function () { if (found) return; return probe(path + v).then(function (ok) { if (ok) found = v; }); });
+      }, Promise.resolve()).then(function () {
+        chip.className = 'ck-img is-bad';
+        photos.bad++;
+        if (found) { count.bad++; chip.textContent = job.file + ' ✕ 실제 파일 이름은 ' + found + ' — 이름을 똑같이 맞춰 주세요'; }
+        else chip.textContent = job.file + ' — 아직 없음';
+      });
+    }).then(function () { running--; photos.done++; summary(); next(); });
+  }
+  next();
+})();
+</script>
+</body>
+</html>

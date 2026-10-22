@@ -1,0 +1,195 @@
+/* =====================================================================
+   ORDO — work.css (Work 페이지 전용, ref3)
+   거대한 옅은 ORDO · 흩어진 작은 정보 줄 · 작업별 머리 줄 · [+] 정보 패널
+   · 크기·비율이 다른 사진을 자동으로 배치하는 매소너리(12칸 / 모바일 4칸)
+   클래스 접두어: .wk-
+   ===================================================================== */
+
+.page--work {
+  --wk-cols: 4;
+  --wk-gap: 8px;          /* 사진끼리 간격 (가로·세로 모두) */
+  --wk-unit: 4px;         /* 매소너리 행 단위 — work.js 와 같은 값 */
+  --wk-first: 72px;       /* 머리 → 첫 작업 */
+  --wk-between: 96px;     /* 작업 블록 사이 */
+}
+@media (min-width: 768px) {
+  .page--work { --wk-cols: 12; --wk-first: 72px; --wk-between: 140px; }
+}
+@media (min-width: 1024px) {
+  .page--work { --wk-first: 72px; --wk-between: 180px; }   /* 첫 화면에 첫 작업 사진이 넉넉히 보이게 */
+}
+
+/* 사진과 같은 칸·같은 간격의 12칸(모바일 4칸) 줄 → 글자가 사진 가장자리에 정확히 맞아요 */
+.wk-row {
+  display: grid;
+  grid-template-columns: repeat(var(--wk-cols), minmax(0, 1fr));
+  column-gap: var(--wk-gap);
+  align-items: start;
+}
+.wk-row > * { grid-column: 1 / -1; min-width: 0; }
+
+/* ---------- 1. 머리 ---------- */
+.wk-top { padding-top: 20px; }
+.wk-meta { row-gap: 8px; }
+.wk-meta__a { grid-column: 1 / 3; }
+.wk-meta__b { grid-column: 3 / 4; }
+.wk-meta__c { display: none; }
+.wk-meta__d { grid-column: 4 / 5; text-align: right; }
+@media (min-width: 768px) {
+  .wk-top { padding-top: 24px; }
+  .wk-meta__a { grid-column: 1 / 4; }
+  .wk-meta__b { grid-column: 4 / 6; }
+  .wk-meta__c { display: block; grid-column: 8 / 10; }
+  .wk-meta__d { grid-column: 11 / 13; }
+}
+
+/* 거대한 ORDO — 폭은 work.js 가 화면 폭에 맞춰요(없으면 27vw). 가로 밀림이 생기지 않게 가로만 잘라요 */
+.wk-giant {
+  margin-top: 6px;
+  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  pointer-events: none;
+}
+.wk-giant__t {
+  display: block;
+  width: max-content;
+  line-height: .78;
+  padding-block: .02em .01em;
+}
+/* JS 가 글자마다 span 으로 나눠 화면 폭에 고르게 벌려요(ref3). JS 가 없으면 27vw 한 덩어리 */
+.wk-giant__t.is-spread { display: flex; justify-content: space-between; width: auto; letter-spacing: 0; }
+.wk-giant__t.is-spread > span { display: block; }
+@media (min-width: 768px) { .wk-giant { margin-top: 10px; } }
+
+.wk-sub { margin-top: 14px; row-gap: 10px; }
+.wk-sub__h1 { grid-column: 1 / 3; }
+.wk-sub__cats { grid-column: 3 / 5; text-align: right; }
+.wk-sub__ko { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-2); }
+@media (min-width: 768px) {
+  .wk-sub { margin-top: 18px; }
+  .wk-sub__h1 { grid-column: 1 / 4; }
+  .wk-sub__cats { grid-column: 4 / 8; text-align: left; }
+  .wk-sub__ko { grid-column: 8 / 13; }
+}
+@media (min-width: 1024px) {
+  .wk-sub__ko { grid-column: 8 / 12; }
+}
+
+/* ---------- 2. 작업 블록 ---------- */
+.wk-list { padding-top: var(--wk-first); }
+.wk-proj { scroll-margin-top: 8px; }   /* html 의 scroll-padding-top(헤더+16px)에 더해져요 */
+.wk-proj + .wk-proj { margin-top: var(--wk-between); }
+
+/* 머리 줄: 범위 / 제목 / [+] / 연도 */
+.wk-head { row-gap: 2px; }
+.wk-head > * { line-height: 1.35; }
+.wk-head__scope { grid-column: 1 / 4; grid-row: 1; }
+.wk-head__year  { grid-column: 4 / 5; grid-row: 1; text-align: right; white-space: nowrap; }
+.wk-head__title { grid-column: 1 / 4; grid-row: 2; }
+.wk-head__tog   { grid-column: 4 / 5; grid-row: 2; justify-self: end; }
+@media (min-width: 768px) {
+  .wk-head__scope { grid-column: 1 / 4; grid-row: 1; }
+  .wk-head__title { grid-column: 4 / 8; grid-row: 1; }
+  .wk-head__tog   { grid-column: 8 / 9; grid-row: 1; justify-self: start; }
+  .wk-head__year  { grid-column: 10 / 13; grid-row: 1; }
+}
+.wk-head__scope { color: var(--ink-2); }
+.wk-head__title { font-weight: var(--fw-medium); letter-spacing: .03em; }
+/* 제목 링크: 보이는 높이는 그대로, 누르는 영역만 44px(밑줄은 안쪽 span 이라 글자 바로 아래) */
+.wk-head__link { display: inline-flex; align-items: center; min-height: 44px; margin-block: -14.5px; }
+.wk-head__link:hover .link, .wk-head__link:focus-visible .link { background-size: 100% 1px; }
+.wk-head__no { font-weight: var(--fw-medium); color: var(--ink-2); margin-right: .6em; }
+
+/* [+] 토글: 보이는 글자는 작게, 누를 수 있는 영역은 44px */
+.wk-tog {
+  position: relative;
+  display: inline-flex; align-items: center;
+  min-width: 44px; min-height: 44px;
+  margin-block: -14.5px;
+  font-size: var(--fs-label); font-weight: var(--fw-medium); letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  transition: color var(--dur-fast);
+}
+.wk-head__tog.wk-tog { justify-content: flex-end; }
+@media (min-width: 768px) { .wk-head__tog.wk-tog { justify-content: flex-start; } }
+.wk-tog__on { display: none; }
+.wk-tog[aria-expanded="true"] .wk-tog__on { display: inline; }
+.wk-tog[aria-expanded="true"] .wk-tog__off { display: none; }
+@media (hover: hover) { .wk-tog:hover { color: var(--ink-2); } }
+
+/* [+] 정보 패널 — 0.3s 로 펼쳐짐(높이 auto 전환: grid-template-rows 0fr → 1fr) */
+.wk-info {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows var(--dur) var(--ease), visibility 0s linear var(--dur);
+}
+.wk-info.is-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows var(--dur) var(--ease), visibility 0s linear 0s;
+}
+.wk-info__in { min-height: 0; overflow: hidden; }
+.wk-info__grid {
+  padding-top: 20px; padding-bottom: 12px;
+  row-gap: 20px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.wk-info.is-open .wk-info__grid { opacity: 1; transform: none; }
+
+.wk-info__no { display: none; font-size: var(--fs-small); line-height: 1.5; color: var(--ink-2); }
+.wk-info__ko { font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.5; }
+.wk-info__sum { margin-top: 6px; font-size: var(--fs-small); line-height: 1.65; max-width: 34em; }
+.wk-facts {
+  display: grid; grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 20px; row-gap: 6px;
+  font-size: var(--fs-small); line-height: 1.45;
+}
+.wk-facts dt { color: var(--ink-2); font-size: var(--fs-label); font-weight: var(--fw-medium); letter-spacing: .04em; text-transform: uppercase; line-height: 1.75; }
+.wk-facts dd { font-variant-numeric: tabular-nums; }
+.wk-info__go { font-size: var(--fs-small); font-weight: var(--fw-medium); white-space: nowrap; display: inline-flex; align-items: center; gap: .35em; min-height: 44px; margin-block: -12px; }
+.wk-info__go:hover .link, .wk-info__go:focus-visible .link { background-size: 100% 1px; }
+.wk-info__goWrap { line-height: 1.35; }
+@media (min-width: 768px) {
+  .wk-info__no { display: block; grid-column: 1 / 4; }
+  .wk-info__main { grid-column: 4 / 8; padding-right: 16px; }
+  .wk-info__facts { grid-column: 8 / 12; }
+  .wk-info__goWrap { grid-column: 12 / 13; justify-self: end; }
+  .wk-info__no, .wk-info__main, .wk-info__facts, .wk-info__goWrap { grid-row: 1; }
+}
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .wk-info__facts { grid-column: 8 / 13; }
+  .wk-info__goWrap { grid-column: 8 / 13; grid-row: 2; justify-self: start; }
+}
+
+/* ---------- 3. 매소너리 ---------- */
+/* 칸 수(span)·행 수(row span)는 work.js 가 사진 비율과 실제 너비로 계산해요 */
+.wk-mason {
+  display: grid;
+  grid-template-columns: repeat(var(--wk-cols), minmax(0, 1fr));
+  column-gap: var(--wk-gap);
+  row-gap: 0;
+  grid-auto-rows: var(--wk-unit);
+  grid-auto-flow: row dense;
+  align-items: start;
+  margin-top: 16px;
+}
+.wk-tile {
+  display: block;
+  grid-column: span 2;
+  min-width: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.wk-tile .ph { transition: opacity var(--dur) var(--ease); }
+@media (hover: hover) {
+  .wk-tile:hover .ph { opacity: .92; }
+}
+.wk-tile:focus-visible .ph { opacity: .92; }
+
+/* 비었을 때 */
+.wk-empty { padding-block: 48px; font-size: var(--fs-small); color: var(--ink-2); }
+.wk-empty a { color: var(--ink); }

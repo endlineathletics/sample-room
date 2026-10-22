@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ▼ 페이지마다 바꿀 곳 1: 제목·설명 (title 형식: "<Page> — ORDO", Home만 "ORDO — Pattern & Sample Atelier, Seoul") -->
+<title>Studio — ORDO</title>
+<meta name="description" content="서울의 패턴·샘플 스튜디오 ORDO 소개, 서비스 5가지(패턴·토일·샘플·그레이딩·소량생산)와 진행 과정.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORDO">
+<meta property="og:title" content="Studio — ORDO">
+<meta property="og:description" content="서울의 패턴·샘플 스튜디오 ORDO 소개, 서비스 5가지(패턴·토일·샘플·그레이딩·소량생산)와 진행 과정.">
+<!-- og:image 는 사이트에서 유일하게 '전체 주소'를 써요(카카오톡·인스타 미리보기는 상대경로를 못 읽어요).
+     저장소를 넘기거나 주소가 바뀌면 모든 .html 의 이 한 줄을 새 주소로 바꿔 주세요. -->
+<meta property="og:image" content="https://endlineathletics.github.io/sample-room/images/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<!-- ▼ 페이지마다 바꿀 곳 2: 페이지 CSS (없으면 이 줄 삭제) -->
+<link rel="stylesheet" href="assets/css/studio.css">
+<script>
+/* 데이터 파일(site.js / works.js) 문법 오류를 잡아 두었다가 common.js 가 한국어로 알려줘요. 모든 페이지 동일 — 수정 금지 */
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0 });
+}, true);
+</script>
+</head>
+<!-- ▼ 페이지마다 바꿀 곳 3:
+     data-page = home | projects | portfolio | work | project | studio | contact  (현재 페이지 내비 표시에 씀)
+     data-bar  = default(카톡 | 의뢰서) | none(하단 바 없음, contact) | project(이 작업처럼 의뢰하기)
+     data-nav  = (선택) 내비에서 대신 표시할 페이지. 예: project.html 은 data-nav="projects"
+     data-footer = (선택) none 이면 푸터를 숨김(Portfolio 데스크톱처럼 한 화면 페이지) -->
+<body data-page="studio" data-bar="default">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 헤더: common.js 가 같은 구조로 다시 그려요(현재 페이지 표시·모바일 메뉴). 아래는 JS가 꺼졌을 때 보이는 내비 — 수정 금지 -->
+<header class="site-header" data-ordo="header">
+  <div class="site-header__in wrap">
+    <a class="wordmark" href="index.html">ORDO</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <ul class="commas" lang="en">
+        <li><a href="projects.html" data-nav="projects">Projects</a></li>
+        <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+        <li><a href="work.html" data-nav="work">Work</a></li>
+        <li><a href="studio.html" data-nav="studio">Studio</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__cta link" href="contact.html#form">의뢰 문의 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<div class="notice" id="data-notice" role="alert" hidden></div>
+
+<main id="main" class="page page--studio">
+  <!-- Studio: 소개 · 서비스 · 리드타임 · 진행 과정.
+       서비스·진행 단계·경력·장비·주소는 data/site.js 값으로 assets/js/studio.js 가 다시 그려요(아래 글은 JS가 꺼졌을 때용). -->
+  <section class="titleblock grid wrap" aria-labelledby="page-title">
+    <h1 class="titleblock__title t-display" id="page-title" lang="en">Studio.</h1>
+    <div class="titleblock__intro">
+      <p class="t-lines" lang="en"><span>A small atelier for structured garments —</span><span>patterns drafted by hand, toiles fitted</span><span>until every seam sits where it should.</span></p>
+      <p class="titleblock__ko">패턴부터 샘플까지, 한 사람이 처음부터 끝까지 책임지는 샘플실입니다.</p>
+    </div>
+    <p class="titleblock__tag" lang="en">(About ORDO)</p>
+  </section>
+
+  <!-- 1. 소개 -->
+  <section class="st-about grid wrap" aria-labelledby="st-about-title">
+    <div class="st-about__media reveal">
+      <div class="ph" style="--ar: 4 / 5" data-ratio="4:5">
+        <img class="ph__img" src="images/site/studio.jpg" alt="ORDO 작업실 — 재단대와 패턴지" loading="lazy" decoding="async">
+        <span class="ph__label" aria-hidden="true">STUDIO · 4:5</span>
+      </div>
+      <!-- 주소·전화·운영시간: 아래 글은 JS가 꺼졌을 때 보이는 기본값이에요. data/site.js 를 바꾸면 이 파일의 같은 글도 같이 고쳐 주세요. -->
+      <p class="st-about__cap t-label t-muted"><span lang="en">(Atelier)</span> <span data-st="place">서울 강남구 역삼동 789-19 · 방문 상담 예약제</span></p>
+    </div>
+
+    <div class="st-about__text">
+      <p class="t-label">(Studio)</p>
+      <!-- ▼ Studio 소개 글: 제목·두 문단은 여기서 바로 고쳐요 -->
+      <h2 class="st-about__title" id="st-about-title" lang="en">Made by hands<br>that read patterns.</h2>
+      <p class="st-about__ko" data-st="career-line">○○ 패턴실에서 ○○년, 이제 직접 샘플실을 엽니다.</p>
+      <div class="st-about__body">
+        <p>ORDO는 자켓·코트·셔츠·블라우스처럼 구조가 까다로운 옷을 전문으로 하는 <span class="nowrap">패턴·샘플실</span>입니다. 도식화 한 장, 사진 몇 장에서 시작해 토일로 핏을 맞추고, 실원단 샘플까지 한곳에서 끝냅니다.</p>
+        <p>보이지 않는 안쪽 — 심지, 시접, 안감의 여유 — 까지 정확하게 만드는 것을 기준으로 삼습니다. 그래서 작업마다 패턴 피스 수와 토일 횟수를 기록으로 남깁니다.</p>
+      </div>
+
+      <div class="st-list">
+        <h3 class="st-list__title t-label">Career <span class="t-muted">경력</span></h3>
+        <ul class="st-career" data-st="career">
+          <li><span class="st-career__y">20○○–20○○</span><span>○○ 패턴실 · 테일러링 자켓·코트 패턴</span></li>
+          <li><span class="st-career__y">20○○–20○○</span><span>○○ 브랜드 샘플실 · 셔츠·블라우스 샘플</span></li>
+          <li><span class="st-career__y">2026</span><span>ORDO 오픈</span></li>
+        </ul>
+      </div>
+
+      <details class="acc st-equip">
+        <summary><span class="t-label">Equipment <span class="t-muted">보유 장비</span></span><span class="acc__sign" aria-hidden="true"></span></summary>
+        <ul class="st-equip__list" data-st="equipment">
+          <li>본봉 미싱 ○대</li><li>오버록 ○대</li><li>인타 미싱</li><li>단추구멍 미싱</li><li>스팀 프레스</li><li>재단대 ○m</li>
+        </ul>
+      </details>
+
+      <div class="st-list" data-st="brands-wrap" hidden>
+        <h3 class="st-list__title t-label">Brands <span class="t-muted">함께한 브랜드</span></h3>
+        <ul class="commas st-brands" data-st="brands"></ul>
+      </div>
+
+      <div class="st-list st-loc">
+        <h3 class="st-list__title t-label">Location <span class="t-muted">위치</span></h3>
+        <p class="st-loc__addr"><span data-st="address">서울 강남구 역삼동 789-19</span> · <span data-st="visit">방문 상담 예약제</span></p>
+        <p class="st-loc__meta t-muted"><span data-st="hours">평일 10:00–19:00</span><span class="st-loc__tel"> · <a class="link" href="tel:+821037133820" data-st="phone">010-3713-3820</a></span></p>
+        <p class="st-loc__more"><a class="link" href="contact.html#location">지도와 오시는 길 <span class="arrow" aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 서비스 -->
+  <section class="st-sec wrap" id="services" aria-labelledby="st-services-title">
+    <div class="st-sec__head grid">
+      <p class="st-sec__no t-label">(Services)</p>
+      <h2 class="st-sec__title t-h2" id="st-services-title">Services</h2>
+      <p class="st-sec__lead">무엇을, 어떤 단위로, 얼마나 걸려서 맡길 수 있는지 한 번에 보여드려요. 한 가지 단계만 맡기셔도 됩니다.</p>
+    </div>
+    <div id="st-services" class="st-services">
+      <ol class="st-svc-list hide-m">
+      <li class="st-svc"><span class="st-svc__no t-label">(01)</span><div class="st-svc__name"><h3>패턴 제작</h3><p>Pattern making</p></div><p class="st-svc__desc">도식화·샘플·사진을 보고 구조가 맞는 패턴을 설계해요.<span class="st-svc__prep">준비물 — 도식화 또는 레퍼런스 사진, 기준 사이즈</span></p><p class="st-svc__meta t-label">○–○ DAYS · 1벌부터</p><a class="st-svc__cta link" href="contact.html?service=pattern#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></li>
+      <li class="st-svc"><span class="st-svc__no t-label">(02)</span><div class="st-svc__name"><h3>토일 가봉·핏 수정</h3><p>Toile &amp; fitting</p></div><p class="st-svc__desc">광목으로 토일을 만들어 피팅하고, 수정한 핏을 패턴에 반영해요.<span class="st-svc__prep">준비물 — 패턴 또는 도식화, 피팅 모델 또는 기준 치수</span></p><p class="st-svc__meta t-label">○–○ DAYS · 1벌부터</p><a class="st-svc__cta link" href="contact.html?service=toile#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></li>
+      <li class="st-svc"><span class="st-svc__no t-label">(03)</span><div class="st-svc__name"><h3>샘플 제작</h3><p>Sample making</p></div><p class="st-svc__desc">실원단으로 봉제·마감까지 끝낸 샘플을 만들어요.<span class="st-svc__prep">준비물 — 원단·부자재(없으면 함께 찾아요), 확정 패턴</span></p><p class="st-svc__meta t-label">○–○ DAYS · 1벌부터</p><a class="st-svc__cta link" href="contact.html?service=sample#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></li>
+      <li class="st-svc"><span class="st-svc__no t-label">(04)</span><div class="st-svc__name"><h3>그레이딩</h3><p>Grading</p></div><p class="st-svc__desc">확정된 패턴을 사이즈별로 편차 전개해요.<span class="st-svc__prep">준비물 — 확정 패턴, 사이즈 편차표(없으면 함께 정해요)</span></p><p class="st-svc__meta t-label">○–○ DAYS · ○사이즈부터</p><a class="st-svc__cta link" href="contact.html?service=grading#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></li>
+      <li class="st-svc"><span class="st-svc__no t-label">(05)</span><div class="st-svc__name"><h3>소량생산 연결</h3><p>Small-batch</p></div><p class="st-svc__desc">샘플과 같은 품질로 만들 수 있는 공장을 연결하고 진행을 챙겨요.<span class="st-svc__prep">준비물 — 최종 샘플, 그레이딩 패턴, 수량표</span></p><p class="st-svc__meta t-label">기간 협의 · ○○벌부터</p><a class="st-svc__cta link" href="contact.html?service=production#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></li>
+      </ol>
+      <div class="st-svc-accs hide-d">
+      <details class="acc st-svc-acc"><summary><span class="st-svc-acc__no t-label">(01)</span><span class="st-svc-acc__name">패턴 제작<span class="st-svc-acc__meta t-label t-muted">○–○ DAYS · 1벌부터</span></span><span class="acc__sign" aria-hidden="true"></span></summary><div class="st-svc-acc__body"><p class="st-svc-acc__en t-label t-muted">Pattern making</p><p>도식화·샘플·사진을 보고 구조가 맞는 패턴을 설계해요.</p><p class="st-svc-acc__prep"><span class="t-label t-muted">준비물</span> 도식화 또는 레퍼런스 사진, 기준 사이즈</p><a class="btn btn--line btn--block" href="contact.html?service=pattern#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></div></details>
+      <details class="acc st-svc-acc"><summary><span class="st-svc-acc__no t-label">(02)</span><span class="st-svc-acc__name">토일 가봉·핏 수정<span class="st-svc-acc__meta t-label t-muted">○–○ DAYS · 1벌부터</span></span><span class="acc__sign" aria-hidden="true"></span></summary><div class="st-svc-acc__body"><p class="st-svc-acc__en t-label t-muted">Toile &amp; fitting</p><p>광목으로 토일을 만들어 피팅하고, 수정한 핏을 패턴에 반영해요.</p><p class="st-svc-acc__prep"><span class="t-label t-muted">준비물</span> 패턴 또는 도식화, 피팅 모델 또는 기준 치수</p><a class="btn btn--line btn--block" href="contact.html?service=toile#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></div></details>
+      <details class="acc st-svc-acc"><summary><span class="st-svc-acc__no t-label">(03)</span><span class="st-svc-acc__name">샘플 제작<span class="st-svc-acc__meta t-label t-muted">○–○ DAYS · 1벌부터</span></span><span class="acc__sign" aria-hidden="true"></span></summary><div class="st-svc-acc__body"><p class="st-svc-acc__en t-label t-muted">Sample making</p><p>실원단으로 봉제·마감까지 끝낸 샘플을 만들어요.</p><p class="st-svc-acc__prep"><span class="t-label t-muted">준비물</span> 원단·부자재(없으면 함께 찾아요), 확정 패턴</p><a class="btn btn--line btn--block" href="contact.html?service=sample#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></div></details>
+      <details class="acc st-svc-acc"><summary><span class="st-svc-acc__no t-label">(04)</span><span class="st-svc-acc__name">그레이딩<span class="st-svc-acc__meta t-label t-muted">○–○ DAYS · ○사이즈부터</span></span><span class="acc__sign" aria-hidden="true"></span></summary><div class="st-svc-acc__body"><p class="st-svc-acc__en t-label t-muted">Grading</p><p>확정된 패턴을 사이즈별로 편차 전개해요.</p><p class="st-svc-acc__prep"><span class="t-label t-muted">준비물</span> 확정 패턴, 사이즈 편차표(없으면 함께 정해요)</p><a class="btn btn--line btn--block" href="contact.html?service=grading#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></div></details>
+      <details class="acc st-svc-acc"><summary><span class="st-svc-acc__no t-label">(05)</span><span class="st-svc-acc__name">소량생산 연결<span class="st-svc-acc__meta t-label t-muted">기간 협의 · ○○벌부터</span></span><span class="acc__sign" aria-hidden="true"></span></summary><div class="st-svc-acc__body"><p class="st-svc-acc__en t-label t-muted">Small-batch</p><p>샘플과 같은 품질로 만들 수 있는 공장을 연결하고 진행을 챙겨요.</p><p class="st-svc-acc__prep"><span class="t-label t-muted">준비물</span> 최종 샘플, 그레이딩 패턴, 수량표</p><a class="btn btn--line btn--block" href="contact.html?service=production#form">이 서비스로 문의 <span class="arrow" aria-hidden="true">→</span></a></div></details></div>
+    </div>
+
+    <div class="st-summary">
+      <div class="st-summary__item">
+        <p class="t-label t-muted">(Lead time)</p>
+        <p class="st-summary__main" data-st="leadtime">자켓 1벌 기준 상담 <span class="glyph">→</span> 최종 샘플 약 ○–○주 · 급행은 문의</p>
+      </div>
+      <div class="st-summary__item">
+        <p class="t-label t-muted">(Quote)</p>
+        <p class="st-summary__note" data-st="quote">견적은 아이템 구조·패턴 피스 수·수량으로 정해져요. 도식화를 받으면 1일 안에 안내드려요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 진행 과정 -->
+  <section class="st-sec wrap" id="process" aria-labelledby="st-process-title">
+    <div class="st-sec__head grid">
+      <p class="st-sec__no t-label">(Process)</p>
+      <h2 class="st-sec__title t-h2" id="st-process-title">Process</h2>
+      <p class="st-sec__lead">단계마다 확인하는 시점이 정해져 있어요. 피팅은 직접 오셔도, 영상으로 보셔도 됩니다.</p>
+    </div>
+    <ol id="st-process" class="st-process">
+      <li class="st-step"><span class="st-step__no t-label">(01)</span><h3 class="st-step__name">상담·자료 검토</h3><p class="st-step__en">Consultation</p><p class="st-step__days t-label">○ DAYS</p><p class="st-step__check"><span class="t-muted">고객 확인</span> 자료 공유</p></li>
+      <li class="st-step"><span class="st-step__no t-label">(02)</span><h3 class="st-step__name">패턴 설계</h3><p class="st-step__en">Pattern</p><p class="st-step__days t-label">○–○ DAYS</p><p class="st-step__check"><span class="t-muted">고객 확인</span> 패턴 확인</p></li>
+      <li class="st-step"><span class="st-step__no t-label">(03)</span><h3 class="st-step__name">토일 가봉·피팅</h3><p class="st-step__en">Toile</p><p class="st-step__days t-label">○–○ DAYS</p><p class="st-step__check"><span class="t-muted">고객 확인</span> 피팅 참석</p></li>
+      <li class="st-step"><span class="st-step__no t-label">(04)</span><h3 class="st-step__name">실원단 샘플</h3><p class="st-step__en">Sample</p><p class="st-step__days t-label">○–○ DAYS</p><p class="st-step__check"><span class="t-muted">고객 확인</span> 샘플 확인</p></li>
+      <li class="st-step"><span class="st-step__no t-label">(05)</span><h3 class="st-step__name">최종 패턴·샘플 전달</h3><p class="st-step__en">Delivery</p><p class="st-step__days t-label">○ DAY</p><p class="st-step__check"><span class="t-muted">고객 확인</span> 수령</p></li>
+    </ol>
+  </section>
+
+  <!-- 4. 마무리 -->
+  <section class="st-end wrap" aria-label="의뢰 문의">
+    <a class="st-end__a" href="contact.html#form">
+      <span class="t-label t-muted">(Request)</span>
+      <span class="st-end__title" lang="en">Start a <span class="nowrap">request&nbsp;<span class="arrow" aria-hidden="true">→</span></span></span>
+      <span class="st-end__ko">도식화 한 장으로도 시작할 수 있어요.</span>
+    </a>
+  </section>
+</main>
+
+<!-- 푸터: common.js 가 site.js 값으로 다시 그려요. 아래는 JS가 꺼졌을 때 — 수정 금지 -->
+<footer class="site-footer" data-ordo="footer">
+  <div class="site-footer__in wrap">
+    <p>ORDO — Pattern &amp; Sample Atelier, Seoul</p>
+    <ul class="commas"><li><a class="link" href="contact.html#channels">Contact</a></li></ul>
+    <p>© 2026 ORDO</p>
+  </div>
+</footer>
+
+<!-- 스크립트 순서 고정: 데이터 → 공통 → 페이지 -->
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script src="assets/js/common.js"></script>
+<!-- ▼ 페이지마다 바꿀 곳 4: 페이지 JS (없으면 이 줄 삭제) -->
+<script src="assets/js/studio.js"></script>
+</body>
+</html>

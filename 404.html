@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found — ORDO</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 이 페이지는 어떤 깊은 주소에서도 열릴 수 있어서, 다른 파일(base.css 등)에 기대지 않고 스스로 완결돼요. -->
+<style>
+  :root { color-scheme: light; --ink: #111; --ink-2: #6B6B6B; --line: #E6E6E6;
+    --font: "Helvetica Neue", Helvetica, Arial, "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+    --pad: 16px; }
+  @media (min-width: 768px) { :root { --pad: clamp(24px, 2.8vw, 40px); } }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: #fff; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
+    background: #fff; color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6;
+    word-break: keep-all; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  header, footer { padding-inline: var(--pad); }
+  header { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .wm { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; display: inline-flex; align-items: center; min-height: 44px; }
+  .lbl { font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  main { flex: 1; padding: clamp(48px, 10vw, 140px) var(--pad) 64px; }
+  h1 { margin: 0; font-size: clamp(56px, 11vw, 150px); font-weight: 700; line-height: .88; letter-spacing: -0.045em; }
+  p { margin: 0; }
+  .ko { margin-top: 24px; font-size: 16px; color: var(--ink-2); max-width: 34em; }
+  .actions { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px;
+    background: var(--ink); color: #fff; border: 1px solid var(--ink); font-size: 13px; font-weight: 500;
+    transition: background-color .2s, color .2s; }
+  .btn:hover { background: #fff; color: var(--ink); }
+  .link { font-size: 13px; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center;
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 calc(100% - 12px) / 0% 1px; transition: background-size .25s cubic-bezier(.2,.7,.2,1); }
+  .link:hover, .link:focus-visible { background-size: 100% 1px; }
+  @media (hover: none) { .link { background-size: 100% 1px; } }
+  footer { border-top: 1px solid var(--line); padding-block: 20px; font-size: 12px; font-weight: 500; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <a class="wm" href="index.html" data-root-link="">ORDO</a>
+  <span class="lbl">(404)</span>
+</header>
+<main id="main">
+  <p class="lbl" style="margin-bottom:20px">Error 404</p>
+  <h1>Page not<br>found.</h1>
+  <p class="ko">찾는 페이지가 없어요. 주소가 바뀌었거나 작업이 내려갔을 수 있어요.<br>처음 화면이나 작업 목록에서 다시 찾아 주세요.</p>
+  <div class="actions">
+    <a class="btn" href="index.html" data-root-link="">처음 화면으로</a>
+    <a class="link" href="projects.html" data-root-link="projects.html">Projects 보기 →</a>
+    <a class="link" href="contact.html" id="kakao-link" data-root-link="contact.html#channels">카카오톡 문의 →</a>
+  </div>
+</main>
+<footer>
+  <span>ORDO — Pattern &amp; Sample Atelier, Seoul</span>
+  <span>© 2026 ORDO</span>
+</footer>
+<script>
+/* 깊은 주소(예: /sample-room/a/b/c)에서도 홈 링크가 맞게 가도록 사이트 뿌리 주소를 찾아요.
+   주소를 깊은 쪽부터 한 칸씩 줄여 가며(/a/b/c/ → /a/b/ → /a/ → /) site.js 를 실제로 불러와 보고,
+   처음 성공한 곳을 뿌리로 써요. github.io 프로젝트 사이트(/sample-room/)든, 더 깊은 하위 경로든,
+   개인 도메인(/)이든 자동으로 맞아요. 저장소 이름이 바뀌어도 따라가요. */
+(function () {
+  if (location.protocol === 'file:') return;            // 로컬 파일로 열면 상대경로 그대로
+  var segs = location.pathname.split('/').filter(Boolean);
+  if (segs.length && /\.[a-z0-9]+$/i.test(segs[segs.length - 1])) segs.pop();   // 마지막 칸이 파일 이름이면 빼요
+  var cands = [];
+  for (var n = segs.length; n >= 0; n--) cands.push('/' + segs.slice(0, n).join('/') + (n ? '/' : ''));
+  function apply(rootPath) {
+    var links = document.querySelectorAll('[data-root-link]');
+    for (var i = 0; i < links.length; i++) links[i].setAttribute('href', rootPath + links[i].getAttribute('data-root-link'));
+  }
+  function tryNext(i) {
+    if (i >= cands.length) { apply(cands[cands.length - 1]); return; }
+    apply(cands[i]);
+    var s = document.createElement('script');
+    s.src = cands[i] + 'data/site.js';
+    s.onload = function () {
+      var c = (window.SITE && window.SITE.contact) || {};
+      var name = (window.SITE && window.SITE.name) || 'ORDO';
+      document.querySelector('.wm').textContent = name;
+      var k = document.getElementById('kakao-link');
+      if (c.kakaoUrl) { k.href = c.kakaoUrl; k.target = '_blank'; k.rel = 'noopener'; }
+      else if (c.phone && !/○/.test(c.phone)) {           // 카톡 채널이 아직 없으면 전화로
+        var d = String(c.phone).replace(/[^\d+]/g, '');
+        if (d) { k.href = 'tel:' + (d.charAt(0) === '0' ? '+82' + d.slice(1) : d); k.textContent = '전화 문의 ' + c.phone + ' →'; }
+      }
+    };
+    s.onerror = function () { s.remove(); tryNext(i + 1); };
+    document.head.appendChild(s);
+  }
+  tryNext(0);
+})();
+</script>
+</body>
+</html>

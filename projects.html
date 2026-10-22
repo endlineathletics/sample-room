@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects — ORDO</title>
+<meta name="description" content="ORDO가 패턴부터 샘플까지 만든 자켓·코트·셔츠·블라우스 작업 목록. 카테고리별로 골라 보고 작업마다 구조를 확인하세요.">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ORDO">
+<meta property="og:title" content="Projects — ORDO">
+<meta property="og:description" content="패턴부터 샘플까지, ORDO가 만든 자켓·코트·셔츠·블라우스 작업 목록.">
+<!-- og:image 는 사이트에서 유일하게 '전체 주소'를 써요(카카오톡·인스타 미리보기는 상대경로를 못 읽어요).
+     저장소를 넘기거나 주소가 바뀌면 모든 .html 의 이 한 줄을 새 주소로 바꿔 주세요. -->
+<meta property="og:image" content="https://endlineathletics.github.io/sample-room/images/site/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='19' text-anchor='middle' fill='%23111'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/projects.css">
+<script>
+/* 데이터 파일(site.js / works.js) 문법 오류를 잡아 두었다가 common.js 가 한국어로 알려줘요. 모든 페이지 동일 — 수정 금지 */
+document.documentElement.className += ' js';
+window.__dataErr = [];
+window.addEventListener('error', function (e) {
+  var f = (e && e.filename) || '';
+  if (/data\/(site|works)\.js/.test(f)) window.__dataErr.push({ file: /works\.js/.test(f) ? 'works' : 'site', line: e.lineno || 0 });
+}, true);
+</script>
+</head>
+<body data-page="projects" data-bar="default">
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 헤더: common.js 가 같은 구조로 다시 그려요(현재 페이지 표시·모바일 메뉴). 아래는 JS가 꺼졌을 때 보이는 내비 — 수정 금지 -->
+<header class="site-header" data-ordo="header">
+  <div class="site-header__in wrap">
+    <a class="wordmark" href="index.html">ORDO</a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <ul class="commas" lang="en">
+        <li><a href="projects.html" data-nav="projects" aria-current="page">Projects</a></li>
+        <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+        <li><a href="work.html" data-nav="work">Work</a></li>
+        <li><a href="studio.html" data-nav="studio">Studio</a></li>
+        <li><a href="contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="site-header__cta link" href="contact.html#form">의뢰 문의 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<div class="notice" id="data-notice" role="alert" hidden></div>
+
+<main id="main" class="page page--projects">
+  <!-- 타이틀 블록(ref1): 큰 제목 · 오른쪽 정렬 소개 3줄 + 한글 한 줄 · 맨 오른쪽 태그 -->
+  <section class="titleblock grid wrap pj-tb" aria-labelledby="page-title">
+    <h1 class="titleblock__title t-display" id="page-title" lang="en">Projects.</h1>
+    <div class="titleblock__intro">
+      <p class="t-lines" lang="en"><span>Jackets, coats, shirts and blouses,</span><span>patterned, toiled and sampled</span><span>in our atelier in Seoul.</span></p>
+      <p class="titleblock__ko">패턴부터 샘플까지, 지금까지 만든 옷들이에요.</p>
+    </div>
+    <p class="titleblock__tag" lang="en">(Selected Work)</p>
+  </section>
+
+  <section class="wrap pj-list" aria-labelledby="pj-list-title">
+    <h2 class="sr-only" id="pj-list-title">작업 목록</h2>
+    <!-- 필터 줄: projects.js 가 works.js 의 카테고리·개수로 그려요 -->
+    <div class="pj-bar" id="pj-bar" hidden>
+      <ul class="commas pj-filter" id="pj-filter" aria-label="카테고리로 거르기"></ul>
+      <p class="pj-count t-label t-muted" id="pj-count" aria-live="polite"></p>
+    </div>
+    <ul class="pj-grid" id="pj-root"><!-- projects.js 가 카드를 그려요 --></ul>
+    <noscript><p class="noscript">작업 목록을 보려면 자바스크립트를 켜 주세요. 의뢰는 <a class="link" href="contact.html">Contact</a> 에서 할 수 있어요.</p></noscript>
+  </section>
+</main>
+
+<!-- 푸터: common.js 가 site.js 값으로 다시 그려요. 아래는 JS가 꺼졌을 때 — 수정 금지 -->
+<footer class="site-footer" data-ordo="footer">
+  <div class="site-footer__in wrap">
+    <p>ORDO — Pattern &amp; Sample Atelier, Seoul</p>
+    <ul class="commas"><li><a class="link" href="contact.html#channels">Contact</a></li></ul>
+    <p>© 2026 ORDO</p>
+  </div>
+</footer>
+
+<!-- 스크립트 순서 고정: 데이터 → 공통 → 페이지 -->
+<script src="data/site.js"></script>
+<script src="data/works.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/projects.js"></script>
+</body>
+</html>
